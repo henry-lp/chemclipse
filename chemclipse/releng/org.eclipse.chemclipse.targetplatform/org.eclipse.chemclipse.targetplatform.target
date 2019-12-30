@@ -125,8 +125,8 @@
 <unit id="org.apache.httpcomponents.httpcore" version="4.4.10.v20190123-2214"/>
 <unit id="org.bouncycastle.bcpkix" version="1.61.0.v20190602-1335"/>
 <unit id="org.codehaus.jackson.core" version="1.6.0.v20101005-0925"/>
-+<unit id="org.mockito" version="2.23.0.v20190527-1420"/>
-<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/S20190819183153/repository"/>
+<unit id="org.mockito" version="2.23.0.v20190527-1420"/>
+<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository"/>
 </location>
 </locations>
 </target>
