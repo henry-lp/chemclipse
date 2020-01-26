@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2012, 2019 Lablicate GmbH.
+ * Copyright (c) 2012, 2020 Lablicate GmbH.
  * 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -8,6 +8,7 @@
  * 
  * Contributors:
  * Dr. Philip Wenig - initial API and implementation
+ * Christoph Läubrich - use getScans() everywhere to access the scan datastructure
  *******************************************************************************/
 package org.eclipse.chemclipse.model.core;
 
@@ -21,7 +22,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,16 +74,16 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	 * the chromatogram.<br/> It is important e.g. for the GUI to known when it
 	 * has to update itself.
 	 */
-	private List<IChromatogramUpdateListener> updateSupport;
+	private final List<IChromatogramUpdateListener> updateSupport;
 	/*
 	 * The version management handles the temporary files and revision names.
 	 */
-	private IVersionManagement versionManagement;
+	private final IVersionManagement versionManagement;
 	/*
 	 * EditHistory stores all information about the edit operations processed on
 	 * the chromatogram.
 	 */
-	private IEditHistory editHistory;
+	private final IEditHistory editHistory;
 	/*
 	 * The baseline model.
 	 */
@@ -91,11 +91,11 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	/*
 	 * Store all scans in this list.<br/>
 	 */
-	private List<IScan> scans;
+	private final List<IScan> scans = new ArrayList<>();
 	/*
 	 * Some vendors store several chromatograms in one file.
 	 */
-	private List<IChromatogram<?>> referencedChromatograms;
+	private final List<IChromatogram<?>> referencedChromatograms;
 	/*
 	 * Integration entries.
 	 */
@@ -103,27 +103,25 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	private List<IIntegrationEntry> chromatogramIntegrationEntries;
 	private List<IIntegrationEntry> backgroundIntegrationEntries;
 	//
-	private IMethod method;
+	private final IMethod method;
 	private ISeparationColumnIndices separationColumnIndices;
 	/*
 	 * This set contains all the peaks of the chromatogram.
 	 * Specific chromatogram implementations might define
 	 * specific peak types, which must extend from IPeak.
 	 */
-	private PeakRTMap<T> peaks = new PeakRTMap<T>();
-	private Set<IIdentificationTarget> identificationTargets = new HashSet<>();
+	private final PeakRTMap<T> peaks = new PeakRTMap<T>();
+	private final Set<IIdentificationTarget> identificationTargets = new HashSet<>();
 
 	/**
 	 * Constructs a normal chromatogram.
 	 * Several initialization will be performed.
 	 */
-	@SuppressWarnings("rawtypes")
 	public AbstractChromatogram() {
 		updateSupport = new ArrayList<IChromatogramUpdateListener>(5);
 		versionManagement = new VersionManagement();
 		editHistory = new EditHistory();
 		baselineModel = new BaselineModel(this);
-		scans = new ArrayList<IScan>();
 		referencedChromatograms = new ArrayList<IChromatogram<?>>();
 		chromatogramIntegrationEntries = new ArrayList<IIntegrationEntry>();
 		backgroundIntegrationEntries = new ArrayList<IIntegrationEntry>();
@@ -224,6 +222,10 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		if(file != null) {
 			return file.getName();
 		} else {
+			String dataName = getDataName();
+			if(dataName != null && !dataName.isEmpty()) {
+				return dataName;
+			}
 			return DEFAULT_CHROMATOGRAM_NAME;
 		}
 	}
@@ -240,7 +242,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		/*
 		 * Do the for loop if at least one scan exists.
 		 */
-		for(IScan scan : scans) {
+		for(IScan scan : getScans()) {
 			actSignal = scan.getTotalSignal();
 			minSignal = (minSignal > actSignal) ? actSignal : minSignal;
 		}
@@ -297,7 +299,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	@Override
 	public int getNumberOfScans() {
 
-		return scans.size();
+		return getScans().size();
 	}
 
 	@Override
@@ -332,7 +334,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		}
 		/*
 		 * Calculate the scan number starting point to not iterate through all
-		 * scans.
+		 * getScans().
 		 */
 		// TODO optimize!! It doesn't work if the scan intervals are not equal of length!!
 		/*
@@ -366,7 +368,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		/*
 		 * Do the for loop if at least one scan exists.
 		 */
-		for(IScan scan : scans) {
+		for(IScan scan : getScans()) {
 			totalSignal += scan.getTotalSignal();
 		}
 		return totalSignal;
@@ -376,7 +378,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public void recalculateScanNumbers() {
 
 		int scanNumber = 1;
-		for(IScan scan : scans) {
+		for(IScan scan : getScans()) {
 			scan.setScanNumber(scanNumber);
 			scanNumber++;
 		}
@@ -386,7 +388,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public void recalculateRetentionTimes() {
 
 		int actual = getScanDelay();
-		for(IScan scan : scans) {
+		for(IScan scan : getScans()) {
 			scan.setRetentionTime(actual);
 			actual += getScanInterval();
 		}
@@ -400,9 +402,10 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public void addScan(IScan scan) {
 
 		scan.setParentChromatogram(this);
-		int lastScan = scans.size();
+		List<IScan> list = getScans();
+		int lastScan = list.size();
 		scan.setScanNumber(++lastScan);
-		scans.add(scan);
+		list.add(scan);
 	}
 
 	@Override
@@ -417,8 +420,9 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public IScan getScan(int scan) {
 
 		int position = scan;
-		if(position > 0 && position <= scans.size()) {
-			return scans.get(--position);
+		List<IScan> list = getScans();
+		if(position > 0 && position <= list.size()) {
+			return list.get(--position);
 		}
 		return null;
 	}
@@ -433,9 +437,16 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public void removeScan(final int scan) {
 
 		int position = scan;
-		if(position > 0 && position <= scans.size()) {
-			scans.remove(--position);
+		List<IScan> list = getScans();
+		if(position > 0 && position <= list.size()) {
+			list.remove(--position);
 		}
+	}
+	
+	@Override
+	public List<T> getPeaks(IChromatogramSelection chromatogramSelection) {
+	
+		return getPeaks(chromatogramSelection.getStartRetentionTime(), chromatogramSelection.getStopRetentionTime());
 	}
 
 	@Override
@@ -518,7 +529,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		ObjectOutputStream outputStream = null;
 		try {
 			outputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
-			outputStream.writeObject(scans);
+			outputStream.writeObject(getScans());
 		} catch(FileNotFoundException e) {
 			logger.warn(e);
 		} catch(IOException e) {
@@ -545,8 +556,9 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 			inputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
 			inputObject = inputStream.readObject();
 			if(inputObject instanceof ArrayList) {
-				scans = null;
-				scans = (ArrayList<IScan>)inputObject;
+				List<IScan> scans = getScans();
+				scans.clear();
+				scans.addAll((ArrayList<IScan>)inputObject);
 			}
 		} catch(FileNotFoundException e) {
 			logger.warn(e);
@@ -935,7 +947,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public boolean containsScanCycles() {
 
 		int defaultCycleNumber = 1;
-		for(IScan scan : scans) {
+		for(IScan scan : getScans()) {
 			if(scan.getCycleNumber() != defaultCycleNumber) {
 				return true;
 			}
@@ -952,7 +964,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 				/*
 				 * Yes, there are cycle scan available.
 				 */
-				for(IScan scan : scans) {
+				for(IScan scan : getScans()) {
 					if(scan.getCycleNumber() == scanCycle) {
 						scanCycleScans.add(scan);
 					}
@@ -963,7 +975,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 				 * Otherwise do nothing.
 				 */
 				if(scanCycle == 1) {
-					scanCycleScans.addAll(scans);
+					scanCycleScans.addAll(getScans());
 				}
 			}
 		}
@@ -993,6 +1005,9 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	@Override
 	public void removeAllPeaks() {
 
+		for(T p : getPeaks()) {
+			p.setPeakType(PeakType.DELETED);
+		}
 		peaks.removeAllPeaks();
 	}
 
@@ -1014,12 +1029,16 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 	public void removePeak(T peak) {
 
 		peaks.removePeak(peak);
+		peak.setPeakType(PeakType.DELETED);
 	}
 
 	@Override
 	public void removePeaks(List<T> peaksToDelete) {
 
 		peaks.removePeaks(peaksToDelete);
+		for(T p : peaksToDelete) {
+			p.setPeakType(PeakType.DELETED);
+		}
 	}
 
 	@Override
@@ -1027,19 +1046,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 
 		return peaks.getPeaks();
 	}
-
-	// TODO JUnit
-	@SuppressWarnings("rawtypes")
-	@Override
-	public List<T> getPeaks(IChromatogramSelection chromatogramSelection) {
-
-		if(chromatogramSelection != null) {
-			int startRetentionTime = chromatogramSelection.getStartRetentionTime();
-			int stopRetentionTime = chromatogramSelection.getStopRetentionTime();
-			return getPeaks(startRetentionTime, stopRetentionTime);
-		}
-		return Collections.emptyList();
-	}
+	
 
 	@Override
 	public List<T> getPeaks(int startRetentionTime, int stopRetentionTime) {
