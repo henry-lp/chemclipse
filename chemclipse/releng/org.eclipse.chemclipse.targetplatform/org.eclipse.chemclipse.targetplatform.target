@@ -96,10 +96,9 @@
 <unit id="org.codehaus.jackson.mapper" version="0.0.0"/>
 <unit id="org.codehaus.jackson.core" version="0.0.0"/>
 <repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository"/>
+<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.swtchart.feature.feature.group" version="0.0.0"/>
+<repository location="https://download.eclipse.org/swtchart/integration/0.8.x/repository/"/>
 </location>
-	<location includeAllPlatforms="false" includeConfigurePhase="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-		<repository location="https://download.eclipse.org/swtchart/integration/develop/repository"/>
-		<unit id="org.eclipse.swtchart.feature.feature.group" version="0.0.0"/>
-	</location>
 </locations>
 </target>
