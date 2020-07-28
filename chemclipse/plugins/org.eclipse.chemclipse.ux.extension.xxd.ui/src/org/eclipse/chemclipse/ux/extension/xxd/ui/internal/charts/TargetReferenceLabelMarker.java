@@ -259,10 +259,10 @@ public class TargetReferenceLabelMarker implements ICustomPaintListener {
 		float dy;
 		if(upsideDown) {
 			dx = (cx - x) / 2;
-			dy = offset / 2;
+			dy = (float) offset / 2;
 		} else {
 			dy = (y - cy) / 2;
-			dx = offset / 2;
+			dx = (float) offset / 2;
 		}
 		path.moveTo(x, y);
 		path.lineTo(x + dx, y - dy);

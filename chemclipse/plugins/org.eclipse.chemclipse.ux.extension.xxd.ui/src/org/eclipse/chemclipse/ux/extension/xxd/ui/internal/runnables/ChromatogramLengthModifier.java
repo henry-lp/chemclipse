@@ -57,7 +57,7 @@ public class ChromatogramLengthModifier implements IRunnableWithProgress {
 				/*
 				 * Calculate the new range
 				 */
-				float retentionTimeRange = chromatogramLength - scanDelay;
+				float retentionTimeRange = (float) chromatogramLength - scanDelay;
 				int scanInterval = Math.round(retentionTimeRange / scanRange);
 				//
 				chromatogram.setScanDelay(scanDelay);

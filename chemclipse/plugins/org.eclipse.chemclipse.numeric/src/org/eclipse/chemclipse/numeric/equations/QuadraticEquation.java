@@ -118,10 +118,10 @@ public class QuadraticEquation implements IEquation {
 		// TODO ist Math.abs() in allen Fällen korrekt?
 		switch(result) {
 			case NEGATIVE:
-				x = -p / 2 - 1 / 2 * Math.sqrt(Math.abs(Math.pow(p, 2) - (4 * q)));
+				x = -p / 2 - (((double) 1 / 2) * Math.sqrt(Math.abs(Math.pow(p, 2) - (4 * q))));
 				break;
 			case POSITIVE:
-				x = -p / 2 + 1 / 2 * Math.sqrt(Math.abs(Math.pow(p, 2) - (4 * q)));
+				x = -p / 2 + (((double) 1 / 2) * Math.sqrt(Math.abs(Math.pow(p, 2) - (4 * q))));
 				break;
 		}
 		return x;
