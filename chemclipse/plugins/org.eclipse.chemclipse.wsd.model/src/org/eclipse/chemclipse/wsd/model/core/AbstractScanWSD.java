@@ -128,7 +128,7 @@ public abstract class AbstractScanWSD extends AbstractScan implements IScanWSD {
 			return;
 		}
 		float base = 100.0f;
-		float correctionFactor = ((base / getTotalSignal()) * totalSignal) / base;
+		float correctionFactor = (((double) base / (double) getTotalSignal()) * totalSignal) / base;
 		float abundance;
 		for(IScanSignalWSD scanSignal : scanSignals) {
 			abundance = scanSignal.getAbundance();

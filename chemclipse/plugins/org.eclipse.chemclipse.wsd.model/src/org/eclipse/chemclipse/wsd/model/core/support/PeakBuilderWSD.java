@@ -251,8 +251,8 @@ public class PeakBuilderWSD {
 			IScanWSD scanWSD = chromatogram.getSupplierScan(scan);
 			float actualSignal = scanWSD.getTotalSignal();
 			float backgroundSignal = (float)backgroundEquation.calculateY(totalScanSignal.getRetentionTime());
-			float correctedSignal = actualSignal - backgroundSignal;
-			float percentage = (100.0f / correctedSignal) * actualSignal;
+			float correctedSignal = (double) actualSignal - (double) backgroundSignal ;
+			float percentage = ((double) 100.0F / (double) correctedSignal) * actualSignal;
 			/*
 			 * Adjust the peak scan.
 			 */

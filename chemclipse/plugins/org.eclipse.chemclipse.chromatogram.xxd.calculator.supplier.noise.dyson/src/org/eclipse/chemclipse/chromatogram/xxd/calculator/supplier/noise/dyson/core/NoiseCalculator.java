@@ -45,7 +45,7 @@ public class NoiseCalculator implements INoiseCalculator {
 			this.chromatogram = chromatogram;
 		}
 		if(Float.isFinite(noiseValue) && noiseValue > 0) {
-			return intensity / noiseValue;
+			return (double) intensity / (double) noiseValue ;
 		} else {
 			return Float.NaN;
 		}

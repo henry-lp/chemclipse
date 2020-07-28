@@ -128,4 +128,4 @@ public class EuclideanMassSpectrumComparator extends AbstractMassSpectrumCompara
 		}
 		return match;
 	}
-};
+}

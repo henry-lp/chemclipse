@@ -90,9 +90,9 @@ public class ChromatogramMoveArrowKeyHandler extends AbstractHandledEventProcess
 				float stopAbundance = chromatogramSelection.getStopAbundance();
 				float newStopAbundance;
 				if(PreferenceSupplier.useAlternateWindowMoveDirection()) {
-					newStopAbundance = (keyCode == SWT.ARROW_UP) ? stopAbundance - stopAbundance / 20.0f : stopAbundance + stopAbundance / 20.0f;
+					newStopAbundance = ((keyCode == SWT.ARROW_UP)) ? stopAbundance - ((double) stopAbundance / (double) 20.0F)  : stopAbundance + ((double) stopAbundance / (double) 20.0F) ;
 				} else {
-					newStopAbundance = (keyCode == SWT.ARROW_UP) ? stopAbundance + stopAbundance / 20.0f : stopAbundance - stopAbundance / 20.0f;
+					newStopAbundance = ((keyCode == SWT.ARROW_UP)) ? stopAbundance + ((double) stopAbundance / (double) 20.0F)  : stopAbundance - ((double) stopAbundance / (double) 20.0F) ;
 				}
 				//
 				int startRetentionTime = chromatogramSelection.getStartRetentionTime();

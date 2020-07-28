@@ -27,7 +27,7 @@ public class ChromatogramOverview_5_Test extends TestCase {
 	private IChromatogramOverview chromatogram;
 	private VendorMassSpectrum supplierMassSpectrum;
 	private ScanIon ion;
-	private float RT_FACTOR = 1000.0f * 60.0f;
+	private float RT_FACTOR = (double) 1000.0F * (double) 60.0F ;
 
 	@Override
 	protected void setUp() throws Exception {

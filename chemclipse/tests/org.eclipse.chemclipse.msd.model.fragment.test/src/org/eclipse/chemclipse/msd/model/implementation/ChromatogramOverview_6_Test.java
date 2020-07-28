@@ -24,7 +24,7 @@ public class ChromatogramOverview_6_Test extends TestCase {
 
 	private ChromatogramMSD chrom;
 	private IChromatogramOverview chromatogram;
-	private float RT_FACTOR = 1000.0f * 60.0f;
+	private float RT_FACTOR = (double) 1000.0F * (double) 60.0F ;
 
 	@Override
 	protected void setUp() throws Exception {

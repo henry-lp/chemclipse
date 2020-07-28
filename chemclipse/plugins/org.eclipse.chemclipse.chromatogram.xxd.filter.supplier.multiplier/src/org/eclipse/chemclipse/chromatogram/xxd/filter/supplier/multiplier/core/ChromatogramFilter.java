@@ -47,7 +47,7 @@ public class ChromatogramFilter extends AbstractChromatogramFilter {
 					float divisor = filterSettings.getDivisor();
 					float factor = 1.0f;
 					if(divisor != 0) {
-						factor = (float)(multiplier / divisor);
+						factor = ((float) ((double) multiplier / (double) divisor));
 					}
 					applyMultiplierFilter(chromatogramSelection, factor);
 					processingInfo.setProcessingResult(new ChromatogramFilterResult(ResultStatus.OK, "The chromatogram selection was successfully normalized."));

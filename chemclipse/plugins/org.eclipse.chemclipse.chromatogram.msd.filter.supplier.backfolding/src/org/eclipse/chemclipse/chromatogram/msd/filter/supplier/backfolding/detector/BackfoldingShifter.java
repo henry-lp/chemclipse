@@ -180,7 +180,7 @@ public class BackfoldingShifter implements IBackfoldingShifter {
 			 * IBackfoldingTotalIonSignal instance and store it in the fresh
 			 * ITotalIonSignals instance.
 			 */
-			deltaSignal = nextSignal - actualSignal;
+			deltaSignal = (double) nextSignal - (double) actualSignal ;
 			totalIonSignalShifted = new ExtendedTotalScanSignal(totalIonSignal.getRetentionTime(), totalIonSignal.getRetentionIndex(), deltaSignal);
 			totalIonSignalsShifted.add(totalIonSignalShifted);
 		}

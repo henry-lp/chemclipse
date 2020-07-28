@@ -39,8 +39,8 @@ public class SampleQuantExportPDF {
 	 * 0,0 is lower left!
 	 */
 	private static final float L_1_MM = 2.8346f;
-	private static final float L_0_5_MM = 0.5f * L_1_MM;
-	private static final float L_1_4_MM = 1.4f * L_1_MM;
+	private static final float L_0_5_MM = (double) 0.5F * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM ;
+	private static final float L_1_4_MM = (double) 1.4F * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM ;
 	private static final float L_15_MM = 15 * L_1_MM;
 	private static final float L_20_MM = 20 * L_1_MM;
 	private static final float L_200_MM = 200 * L_1_MM;
@@ -208,14 +208,14 @@ public class SampleQuantExportPDF {
 		/*
 		 * Print last line.
 		 */
-		float top = getPositionFromTop(yPosition * L_1_MM);
+		float top = getPositionFromTop((double) yPosition * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
 		contentStream.drawLine(xPosition, top, L_200_MM, top);
 		/*
 		 * Print vertical lines.
 		 */
-		float yStart = getPositionFromTop(yStartPosition * L_1_MM);
-		float yStartExtraSpace = getPositionFromTop((yStartPosition + L_1_4_MM + L_0_5_MM) * L_1_MM);
-		float yStop = getPositionFromTop(yPosition * L_1_MM);
+		float yStart = getPositionFromTop((double) yStartPosition * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
+		float yStartExtraSpace = getPositionFromTop((((double) yStartPosition + (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_4_MM)  + L_0_5_MM) * L_1_MM);
+		float yStop = getPositionFromTop((double) yPosition * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
 		float left = xPosition;
 		for(PdfTableCell cell : cellsMaster) {
 			if(cell.isPrintLeftLine()) {
@@ -246,16 +246,16 @@ public class SampleQuantExportPDF {
 	private float printTableLine(PDPageContentStream contentStream, float xPosition, float yPosition, List<PdfTableCell> cells, Color color, boolean bold, boolean drawTopLine) throws IOException {
 
 		float left = xPosition;
-		float top = getPositionFromTop(yPosition * L_1_MM);
+		float top = getPositionFromTop((double) yPosition * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
 		/*
 		 * Draw a colored background.
 		 */
 		if(color != null) {
 			contentStream.setNonStrokingColor(color);
-			float heightx = L_1_4_MM + L_0_5_MM;
-			float topx = getPositionFromTop((yPosition + heightx) * L_1_MM);
-			float widthx = L_200_MM - xPosition;
-			contentStream.fillRect(xPosition, topx, widthx, heightx * L_1_MM);
+			float heightx = (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_4_MM + (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_0_5_MM ;
+			float topx = getPositionFromTop(((double) yPosition + (double) heightx) * L_1_MM);
+			float widthx = (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_200_MM - (double) xPosition ;
+			contentStream.fillRect(xPosition, topx, widthx, (double) heightx * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
 		}
 		contentStream.setNonStrokingColor(Color.BLACK);
 		/*
@@ -271,7 +271,7 @@ public class SampleQuantExportPDF {
 		/*
 		 * Print the text
 		 */
-		top = getPositionFromTop(yPosition * L_1_MM);
+		top = getPositionFromTop((double) yPosition * (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_1_MM );
 		for(PdfTableCell cell : cells) {
 			if(bold) {
 				contentStream.setFont(fontBold, 12);
@@ -310,6 +310,6 @@ public class SampleQuantExportPDF {
 
 	private float getPositionFromTop(float x) {
 
-		return L_297_MM - x;
+		return (double) org.eclipse.chemclipse.chromatogram.xxd.process.supplier.workflows.converter.SampleQuantExportPDF.L_297_MM - (double) x ;
 	}
 }

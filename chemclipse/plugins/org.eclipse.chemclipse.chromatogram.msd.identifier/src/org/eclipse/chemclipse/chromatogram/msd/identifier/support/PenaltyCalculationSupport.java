@@ -98,12 +98,12 @@ public class PenaltyCalculationSupport {
 			throw new IllegalArgumentException("" + maxPenalty);
 		// logger.debug("unkown " + valueReference + ", reference " +
 		// valueReference + ", window size " + valueWindow);
-		final float windowRangeCount = Math.abs((valueUnknown - valueReference) / valueWindow);
+		final float windowRangeCount = Math.abs(((double) valueUnknown - (double) valueReference) / valueWindow);
 		// logger.debug("window count " + windowRangeCount);
 		if(windowRangeCount <= 1.0f) {
 			return 0.0f;
 		} else {
-			final float result = (windowRangeCount - 1.0f) * penaltyCalculationLevelFactor;
+			final float result = ((double) windowRangeCount - (double) 1.0F) * penaltyCalculationLevelFactor;
 			// logger.debug("penalty result " + result);
 			return (result > maxPenalty) ? maxPenalty : result;
 		}

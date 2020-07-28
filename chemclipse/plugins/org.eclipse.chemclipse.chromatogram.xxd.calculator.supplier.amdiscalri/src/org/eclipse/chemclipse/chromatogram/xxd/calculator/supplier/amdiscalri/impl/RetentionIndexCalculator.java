@@ -185,14 +185,14 @@ public class RetentionIndexCalculator {
 		/*
 		 * Execute the calculation.
 		 */
-		float factorRetentionIndex = retentionIndexHigh - retentionIndexLow;
+		float factorRetentionIndex = (double) retentionIndexHigh - (double) retentionIndexLow ;
 		float nominatorRT = retentionTime - retentionTimeLow;
 		float denominatorRT = retentionTimeHigh - retentionTimeLow;
 		if(denominatorRT != 0) {
 			/*
 			 * Calculate the retention index.
 			 */
-			retentionIndex = retentionIndexLow + factorRetentionIndex * nominatorRT / denominatorRT;
+			retentionIndex = retentionIndexLow + (((double) factorRetentionIndex * (double) nominatorRT)  / denominatorRT);
 		}
 		//
 		return retentionIndex;
