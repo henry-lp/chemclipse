@@ -33,13 +33,13 @@ public class ConverterFactory {
 				@Override
 				public float convertToPt(float value) {
 
-					return value * getFactor();
+					return (double) value * (double) getFactor() ;
 				}
 
 				@Override
 				public float convertFromPt(float value) {
 
-					return value / getFactor();
+					return (double) value / (double) getFactor() ;
 				}
 			};
 			UNIT_CONVERTER_MAP.put(unit, unitConverter);

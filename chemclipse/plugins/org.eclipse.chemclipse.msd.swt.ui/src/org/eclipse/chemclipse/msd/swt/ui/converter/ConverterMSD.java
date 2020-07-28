@@ -57,7 +57,7 @@ public class ConverterMSD {
 			//
 			float maxIntensity = Calculations.getMax(intensities);
 			float medianIntensity = Calculations.getMedian(intensities);
-			float limitIntensity = medianIntensity + ((maxIntensity - medianIntensity) / 6.0f);
+			float limitIntensity = medianIntensity + (((double) maxIntensity - (double) medianIntensity) / 6.0f);
 			int moduloValue = numberOfIons / 100;
 			//
 			int j = 0;

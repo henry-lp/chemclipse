@@ -43,7 +43,7 @@ public class ChromatogramSubtractor {
 						 */
 						float totalSignalMaster = scanMaster.getTotalSignal();
 						float totalSignalSubstract = scanSubtract.getTotalSignal();
-						float totalSignal = totalSignalMaster - totalSignalSubstract;
+						float totalSignal = (double) totalSignalMaster - (double) totalSignalSubstract ;
 						//
 						if(scanMaster instanceof IScanMSD) {
 							if(totalSignal > 0) {

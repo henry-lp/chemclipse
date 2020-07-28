@@ -280,9 +280,9 @@ public class ExtractedWavelengthSignal implements IExtractedWavelengthSignal {
 		if(normalizationBase > 0) {
 			float maxIntensity = Calculations.getMax(abundanceValues);
 			if(maxIntensity > 0) {
-				float factor = normalizationBase / maxIntensity;
+				float factor = (double) normalizationBase / (double) maxIntensity ;
 				for(int i = 0; i < abundanceValues.length; i++) {
-					abundanceValues[i] = factor * abundanceValues[i];
+					abundanceValues[i] = (double) factor * (double) abundanceValues[i] ;
 				}
 			}
 		}

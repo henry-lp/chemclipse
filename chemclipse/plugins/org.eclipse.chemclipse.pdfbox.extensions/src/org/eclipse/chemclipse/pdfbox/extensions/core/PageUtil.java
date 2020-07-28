@@ -415,7 +415,7 @@ public class PageUtil {
 		 */
 		if(color != null) {
 			float _extra = unitConverter.convertFromPt(0.3f); // Prevents a tiny gap
-			printBox(new BoxElement(_x, _y, pdTable.getWidth(), _height + _extra).setColor(color));
+			printBox(new BoxElement(_x, _y, pdTable.getWidth(), (double) _height + (double) _extra ).setColor(color));
 		}
 		//
 		for(CellElement cell : cells) {
@@ -431,7 +431,7 @@ public class PageUtil {
 			if(cell.isBorderSet()) {
 				//
 				float _xRight = _x + cell.getMaxWidth();
-				float _yHeight = _y + _height;
+				float _yHeight = (double) _y + (double) _height ;
 				//
 				if(cell.isBorderSet(CellElement.BORDER_LEFT)) {
 					printLine(new LineElement(_x, _y, _x, _yHeight).setLineWidth(_lineWidth));
@@ -503,7 +503,7 @@ public class PageUtil {
 				y = getPositionBaseY(referenceElement.getY()) - elementHeight;
 				break;
 			case CENTER:
-				y = getPositionBaseY(referenceElement.getY()) - elementHeight / 2.0f;
+				y = getPositionBaseY(referenceElement.getY()) - ((double) elementHeight / (double) 2.0F) ;
 				break;
 			case BOTTOM:
 				y = getPositionBaseY(referenceElement.getY());
@@ -600,7 +600,7 @@ public class PageUtil {
 		List<String> parts = cutStringMultiLine(text, textWidth, maxWidth);
 		float offset = 0.0f;
 		for(String part : parts) {
-			float height = printText(font, fontSize, color, x, y - offset, part);
+			float height = printText(font, fontSize, color, x, (double) y - (double) offset , part);
 			offset += (height > minHeight) ? height : minHeight;
 		}
 		//

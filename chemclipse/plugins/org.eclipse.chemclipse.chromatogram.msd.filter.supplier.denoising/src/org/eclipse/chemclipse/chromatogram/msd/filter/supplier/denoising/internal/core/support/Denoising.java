@@ -220,7 +220,7 @@ public class Denoising {
 			abundance = extractedIonSignal.getAbundance(ion);
 			if(abundance > 0) {
 				subtractAbundance = correlationFactor * noiseSignal.getAbundance(ion);
-				newAbundance = abundance - subtractAbundance;
+				newAbundance = (double) abundance - (double) subtractAbundance ;
 				if(newAbundance <= 0.0f) {
 					extractedIonSignal.setAbundance(ion, 0.0f, true);
 				} else {
@@ -278,7 +278,7 @@ public class Denoising {
 				 */
 				abundanceScan = extractedIonSignal.getAbundance(entry.getIon());
 				if(abundanceScan > 0.0f) {
-					coefficient = abundanceScan / abundanceNoise;
+					coefficient = (double) abundanceScan / (double) abundanceNoise ;
 					coefficients.add(coefficient);
 					counter++;
 					/*
