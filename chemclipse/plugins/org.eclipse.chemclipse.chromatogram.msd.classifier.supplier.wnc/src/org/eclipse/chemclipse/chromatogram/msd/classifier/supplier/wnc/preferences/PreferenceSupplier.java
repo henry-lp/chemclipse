@@ -94,7 +94,7 @@ public class PreferenceSupplier implements IPreferenceSupplier {
 		 */
 		IWncIons ions = new WncIons();
 		String preferenceEntry = preferences.get(P_WNC_IONS, DEF_WNC_IONS);
-		if(preferenceEntry != "") {
+		if(!preferenceEntry.equals("")) {
 			String[] items = parseString(preferenceEntry);
 			if(items.length > 0) {
 				String name;

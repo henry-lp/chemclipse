@@ -165,7 +165,7 @@ public abstract class ChromatogramPropertySource implements IPropertySource {
 		if(denominator != 0) {
 			value = value / denominator;
 		}
-		if(pattern == null || pattern == "") {
+		if(pattern == null || pattern.equals("") ) {
 			pattern = "#.00";
 		}
 		formatter = ValueFormat.getDecimalFormatEnglish(pattern);

@@ -134,7 +134,7 @@ public class SampleQuantReport implements ISampleQuantReport {
 	@Override
 	public List<ISampleQuantSubstance> getSampleQuantSubstances(String searchTerms) {
 
-		if(searchTerms == null || searchTerms == "") {
+		if(searchTerms == null || searchTerms.equals("") ) {
 			return sampleQuantSubstances;
 		}
 		//

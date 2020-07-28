@@ -53,7 +53,7 @@ public class MassSpectrumIdentifier {
 				 */
 				for(ISupplier supplier : suppliers) {
 					String supplierExtension = supplier.getFileExtension().toLowerCase();
-					if(supplierExtension != "" && baseFileName.endsWith(supplierExtension)) {
+					if(!supplierExtension.equals("") && baseFileName.endsWith(supplierExtension)) {
 						if(supplier.isImportable()) {
 							return true;
 						} else {
@@ -67,7 +67,7 @@ public class MassSpectrumIdentifier {
 				 */
 				for(ISupplier supplier : suppliers) {
 					String supplierFileName = supplier.getFileName().toLowerCase();
-					if(supplierFileName != "" && baseFileName.endsWith(supplierFileName)) {
+					if(!supplierFileName.equals("") && baseFileName.endsWith(supplierFileName)) {
 						if(supplier.isImportable()) {
 							return true;
 						} else {
@@ -102,7 +102,7 @@ public class MassSpectrumIdentifier {
 		} else {
 			for(ISupplier supplier : suppliers) {
 				directoryExtension = supplier.getDirectoryExtension().toUpperCase();
-				if(directoryExtension != "" && directory.endsWith(directoryExtension)) {
+				if(!directoryExtension.equals("") && directory.endsWith(directoryExtension)) {
 					if(supplier.isImportable()) {
 						return true;
 					} else {

@@ -687,7 +687,7 @@ public abstract class AbstractChromatogram<T extends IPeak> extends AbstractMeas
 		File file = getFile();
 		if(file != null) {
 			String fileName = file.getName();
-			if(fileName != "" && fileName != null) {
+			if(!fileName.equals("") && fileName != null) {
 				/*
 				 * Extract the file name.
 				 */

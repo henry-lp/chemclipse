@@ -126,7 +126,7 @@ public class PreferenceSupplier implements IPreferenceSupplier {
 		 */
 		Set<Integer> ions = new HashSet<Integer>();
 		String preferenceEntry = preferences.get(preference, def);
-		if(preferenceEntry != "") {
+		if(!preferenceEntry.equals("")) {
 			String[] items = parseString(preferenceEntry);
 			if(items.length > 0) {
 				Integer ion;

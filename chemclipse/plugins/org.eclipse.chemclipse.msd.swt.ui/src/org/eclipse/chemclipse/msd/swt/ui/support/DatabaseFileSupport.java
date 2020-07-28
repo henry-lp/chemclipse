@@ -279,7 +279,7 @@ public class DatabaseFileSupport {
 			 * appropriate directory.
 			 */
 			String directoryExtension = selectedSupplier.getDirectoryExtension();
-			if(directoryExtension != "") {
+			if(!directoryExtension.equals("")) {
 				isDirectory = true;
 				/*
 				 * Remove a possible directory extension.

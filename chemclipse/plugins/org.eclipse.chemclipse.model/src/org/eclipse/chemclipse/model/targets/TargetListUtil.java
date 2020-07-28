@@ -45,7 +45,7 @@ public class TargetListUtil {
 	public List<String> getList(String preferenceEntry) {
 
 		List<String> values = new ArrayList<String>();
-		if(preferenceEntry != "") {
+		if(!preferenceEntry.equals("")) {
 			String[] items = parseString(preferenceEntry);
 			if(items.length > 0) {
 				for(String item : items) {

@@ -110,7 +110,7 @@ public abstract class AbstractSupplierFileIdentifier implements ISupplierFileIde
 				return isDirectoryPatternMatch(file, directoryParts, 0);
 			} else {
 				directoryExtension = directoryExtension.toUpperCase();
-				if(directoryExtension != "" && directory.endsWith(directoryExtension)) {
+				if(!directoryExtension.equals("") && directory.endsWith(directoryExtension)) {
 					if(supplier.isImportable()) {
 						return true;
 					}
