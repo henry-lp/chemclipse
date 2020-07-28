@@ -43,7 +43,7 @@ public class PeakIdentifier {
 		} else {
 			for(ISupplier supplier : suppliers) {
 				supplierExtension = supplier.getFileExtension().toLowerCase();
-				if(supplierExtension != "" && extension.endsWith(supplierExtension)) {
+				if(!supplierExtension.equals("") && extension.endsWith(supplierExtension)) {
 					if(supplier.isImportable()) {
 						return true;
 					} else {
@@ -77,7 +77,7 @@ public class PeakIdentifier {
 		} else {
 			for(ISupplier supplier : suppliers) {
 				directoryExtension = supplier.getDirectoryExtension().toUpperCase();
-				if(directoryExtension != "" && directory.endsWith(directoryExtension)) {
+				if(!directoryExtension.equals("") && directory.endsWith(directoryExtension)) {
 					if(supplier.isImportable()) {
 						return true;
 					} else {

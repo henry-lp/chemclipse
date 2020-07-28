@@ -44,7 +44,7 @@ public class CalibrationFileListUtil {
 	public List<String> getFiles(String preferenceEntry) {
 
 		List<String> files = new ArrayList<String>();
-		if(preferenceEntry != "") {
+		if(!preferenceEntry.equals("")) {
 			String[] items = parseString(preferenceEntry);
 			if(items.length > 0) {
 				for(String item : items) {

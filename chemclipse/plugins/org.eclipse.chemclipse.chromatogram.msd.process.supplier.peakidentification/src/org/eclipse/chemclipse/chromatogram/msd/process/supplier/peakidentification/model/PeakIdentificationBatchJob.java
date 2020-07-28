@@ -38,7 +38,7 @@ public class PeakIdentificationBatchJob implements IPeakIdentificationBatchJob {
 	public String getName() {
 
 		String fileName = "PeakIdentification";
-		if(name != "" && name != null) {
+		if(!name.equals("") && name != null) {
 			if(name.endsWith(".opi")) {
 				fileName = name.substring(0, name.length() - 4);
 			} else {
