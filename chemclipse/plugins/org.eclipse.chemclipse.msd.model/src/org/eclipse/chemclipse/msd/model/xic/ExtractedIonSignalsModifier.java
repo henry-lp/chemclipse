@@ -166,7 +166,7 @@ public class ExtractedIonSignalsModifier {
 		float result = 0.0f;
 		// Use float to get a higher precision.
 		int transitions = calculateTransitions(startScan, stopScan, extractedIonSignals, ion);
-		float valuesNotZero = width - transitions;
+		float valuesNotZero = (float) width - transitions;
 		if(width > 0) {
 			result = valuesNotZero / width;
 		}
